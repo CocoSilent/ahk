@@ -2,7 +2,7 @@
 #IfWinActive, ahk_class D3 Main Window Class
 
 SetKeyDelay,10
-SetMouseDelay,10
+SetMouseDelay,-1
 
 bStart:=false
 bLeft:=true
@@ -148,6 +148,8 @@ If (bStart=false)
 Else
 {
 Send 1
+SetTimer  ForceMove,Off
+SetTimer, ForceMove, 20 
 SetTimer, Skill1, 439
 }
 Return

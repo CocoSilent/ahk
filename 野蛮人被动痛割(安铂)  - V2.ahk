@@ -48,29 +48,41 @@ Click    ;鼠标左键
 Return
 }
 
+MouseRButton:
+{
+Send, {RButton Down}
+Return
+}
+
 Close(){
 	global
 	bStart:=false
-	;SetTimer  Skill1,off
+	send {Shift up}
+	SetTimer  Skill1,off
 	SetTimer  Skill2,Off
 	SetTimer  Skill3,Off
 	SetTimer  Skill4,Off
-	SetTimer  ForceMove,Off
-	SetTimer  MouseLButton,Off
+	;SetTimer  ForceMove,Off
+	;SetTimer  MouseLButton,Off
+	SetTimer  MouseRButton,Off
+	Send, {RButton Up}
+	Sleep, 100
+	Send, {RButton Up}
 }
 
 Start(){
 	global
 	if(bStart=false){
 		bStart:=true
-		;SetTimer, Skill1, 210  
+		SetTimer, Skill1, 4000  
 		SetTimer, Skill2, 220  
-		SetTimer, Skill3, 230 
-		SetTimer, Skill4, 240
-		SetTimer, ForceMove, 20  
-		if(bLeft){
-		SetTimer, MouseLButton, 50
-		}
+		Gosub, Skill3
+		SetTimer, Skill3, 119000 
+		Gosub, Skill4
+		SetTimer, Skill4, 119000  
+		;SetTimer, ForceMove, 20    
+		;SetTimer, MouseLButton, 50
+		SetTimer, MouseRButton, 1000
 	}
 	else{
 		Close()
@@ -85,21 +97,10 @@ Close()
 Return
 
 
-F2:: 
+*F2:: 
 $XButton2:: 
 	Start()
 Return
 
 
-F3::
-$XButton1::
-if(bStart=true){
-	if(bLeft=true){
-		bLeft:=false
-		SetTimer  MouseLButton,Off
-	}else{
-		bLeft:=true
-		SetTimer, MouseLButton, 50
-	}
-}
-Return
+Return 

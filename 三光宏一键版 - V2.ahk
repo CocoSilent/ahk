@@ -77,8 +77,10 @@ Start(){
 		SetTimer, Skill3, 230 
 		SetTimer, Skill4, 240  
 		SetTimer, hpQ, 240
-		SetTimer, ForceMove, 20    
+		SetTimer, ForceMove, 20  
+		if(bLeft){
 		SetTimer, MouseLButton, 50
+		}
 	}
 	else{
 		Close()

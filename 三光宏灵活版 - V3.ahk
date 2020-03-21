@@ -103,3 +103,49 @@ if(bStart=true){
 	}
 }
 Return
+
+~*RButton::
+{
+MourseRDown()
+}	
+Return
+
+~*RButton Up::
+{
+MourseRUp()
+}
+Return 
+
+MourseRDown()
+{
+global
+If (bStart=false)
+{
+}
+Else
+{
+SetTimer  ForceMove,Off
+SetTimer  ForceMove,Off
+SetTimer  MouseLButton,Off
+SetTimer  MouseLButton,Off
+;SetTimer, ForceMove, 20 
+}
+Return
+}
+
+
+MourseRUp()
+{
+global
+If (bStart=false)
+{
+}
+Else
+{
+SetTimer, ForceMove, 20 
+if(bLeft){
+	SetTimer, MouseLButton, 50
+}
+}
+Return
+}

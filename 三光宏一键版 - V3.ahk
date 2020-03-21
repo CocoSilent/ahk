@@ -2,7 +2,7 @@
 #IfWinActive, ahk_class D3 Main Window Class
 
 SetKeyDelay,10
-SetMouseDelay,10
+SetMouseDelay,-1
 
 bStart:=false
 bLeft:=true
@@ -48,15 +48,24 @@ Click    ;鼠标左键
 Return
 }
 
+MouseRButton:
+{
+Click Right
+Return
+}
+
 Close(){
 	global
 	bStart:=false
-	;SetTimer  Skill1,off
+	SetTimer  Skill1,off
 	SetTimer  Skill2,Off
 	SetTimer  Skill3,Off
 	SetTimer  Skill4,Off
+	SetTimer hpQ, Off
 	SetTimer  ForceMove,Off
 	SetTimer  MouseLButton,Off
+	Send {1 up}
+	;SetTimer  MouseRButton,Off
 }
 
 Start(){
@@ -66,7 +75,8 @@ Start(){
 		;SetTimer, Skill1, 210  
 		SetTimer, Skill2, 220  
 		SetTimer, Skill3, 230 
-		SetTimer, Skill4, 240
+		SetTimer, Skill4, 240  
+		SetTimer, hpQ, 240
 		SetTimer, ForceMove, 20  
 		if(bLeft){
 		SetTimer, MouseLButton, 50
@@ -74,6 +84,22 @@ Start(){
 	}
 	else{
 		Close()
+	}
+}
+
+hpQ(){
+	IniRead, OutputVar, config.ini, hp, x
+	x=%OutputVar%
+	IniRead, OutputVar, config.ini, hp, y
+	y=%OutputVar%
+	IniRead, OutputVar, config.ini, hp, width
+	width=%OutputVar%
+	IniRead, OutputVar, config.ini, hp, persent
+	persent=%OutputVar%
+    PixelGetColor, lifebar_color1, % x + Floor(width * persent), y, RGB
+
+	if(lifebar_color1 = 0x000000){
+		Send q
 	}
 }
 
@@ -90,7 +116,6 @@ $XButton2::
 	Start()
 Return
 
-
 F3::
 $XButton1::
 if(bStart=true){
@@ -103,3 +128,52 @@ if(bStart=true){
 	}
 }
 Return
+	
+~*RButton::
+{
+MourseRDown()
+}	
+Return
+
+~*RButton Up::
+{
+MourseRUp()
+}
+Return 
+
+MourseRDown()
+{
+global
+If (bStart=false)
+{
+}
+Else
+{
+Send 1
+SetTimer  ForceMove,Off
+SetTimer  ForceMove,Off
+SetTimer  MouseLButton,Off
+SetTimer  MouseLButton,Off
+;SetTimer, ForceMove, 20 
+SetTimer, Skill1, 4000
+}
+Return
+}
+
+
+MourseRUp()
+{
+global
+If (bStart=false)
+{
+}
+Else
+{
+SetTimer  Skill1,Off
+SetTimer, ForceMove, 20 
+if(bLeft){
+	SetTimer, MouseLButton, 50
+}
+}
+Return
+}

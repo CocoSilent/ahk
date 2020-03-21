@@ -48,29 +48,37 @@ Click    ;鼠标左键
 Return
 }
 
+MouseRButton:
+{
+Click Right
+Return
+}
+
 Close(){
 	global
 	bStart:=false
-	;SetTimer  Skill1,off
+	SetTimer  Skill1,off
 	SetTimer  Skill2,Off
 	SetTimer  Skill3,Off
 	SetTimer  Skill4,Off
 	SetTimer  ForceMove,Off
 	SetTimer  MouseLButton,Off
+	SetTimer  MouseRButton,Off
 }
 
 Start(){
 	global
 	if(bStart=false){
 		bStart:=true
-		;SetTimer, Skill1, 210  
+		SetTimer, Skill1, 210  
 		SetTimer, Skill2, 220  
 		SetTimer, Skill3, 230 
-		SetTimer, Skill4, 240
-		SetTimer, ForceMove, 20  
-		if(bLeft){
-		SetTimer, MouseLButton, 50
+		SetTimer, Skill4, 240  
+		SetTimer, ForceMove, 20
+		if(bLeft=true){
+		SetTimer, MouseLButton, 2000
 		}
+		SetTimer, MouseRButton, 267
 	}
 	else{
 		Close()
@@ -99,7 +107,7 @@ if(bStart=true){
 		SetTimer  MouseLButton,Off
 	}else{
 		bLeft:=true
-		SetTimer, MouseLButton, 50
+		SetTimer, MouseLButton, 2000
 	}
 }
 Return

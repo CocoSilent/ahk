@@ -51,12 +51,13 @@ Return
 Close(){
 	global
 	bStart:=false
+	send {Shift up}
 	;SetTimer  Skill1,off
 	SetTimer  Skill2,Off
 	SetTimer  Skill3,Off
 	SetTimer  Skill4,Off
-	SetTimer  ForceMove,Off
-	SetTimer  MouseLButton,Off
+	;SetTimer  ForceMove,Off
+	;SetTimer  MouseLButton,Off
 }
 
 Start(){
@@ -66,11 +67,9 @@ Start(){
 		;SetTimer, Skill1, 210  
 		SetTimer, Skill2, 220  
 		SetTimer, Skill3, 230 
-		SetTimer, Skill4, 240
-		SetTimer, ForceMove, 20  
-		if(bLeft){
-		SetTimer, MouseLButton, 50
-		}
+		SetTimer, Skill4, 240  
+		;SetTimer, ForceMove, 20    
+		;SetTimer, MouseLButton, 50
 	}
 	else{
 		Close()
@@ -85,21 +84,24 @@ Close()
 Return
 
 
-F2:: 
+*F2:: 
 $XButton2:: 
 	Start()
 Return
 
-
-F3::
-$XButton1::
-if(bStart=true){
-	if(bLeft=true){
-		bLeft:=false
-		SetTimer  MouseLButton,Off
-	}else{
-		bLeft:=true
-		SetTimer, MouseLButton, 50
-	}
+~*LButton::
+KeyWait,LButton, T0.5
+if (ErrorLevel){
+send {Shift down}
 }
-Return
+else
+{
+send {Shift up}
+}
+return
+
+~*LButton Up::
+{
+send {Shift up}
+}
+Return 

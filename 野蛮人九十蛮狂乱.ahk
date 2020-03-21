@@ -21,17 +21,19 @@ Send 2
 Return
 }
 
-Skill3:
-{
-;ControlSend ,,{3},暗黑破坏神III 
-Send 3
-Return
-}
+
 
 Skill4:
 {
 ;ControlSend ,,{4},暗黑破坏神III 
 Send 4
+Return
+}
+
+Skill3:
+{
+;ControlSend ,,{3},暗黑破坏神III 
+Send 3
 Return
 }
 
@@ -48,26 +50,37 @@ Click    ;鼠标左键
 Return
 }
 
+MouseRButton:
+{
+Click Right
+Return
+}
+
 Close(){
 	global
 	bStart:=false
-	;SetTimer  Skill1,off
+	SetTimer  Skill1,off
 	SetTimer  Skill2,Off
 	SetTimer  Skill3,Off
 	SetTimer  Skill4,Off
-	SetTimer  ForceMove,Off
+	;SetTimer  ForceMove,Off
 	SetTimer  MouseLButton,Off
+	SetTimer  MouseRButton,Off
 }
 
 Start(){
 	global
 	if(bStart=false){
 		bStart:=true
-		;SetTimer, Skill1, 210  
+		SetTimer, Skill1, 210  
 		SetTimer, Skill2, 220  
-		SetTimer, Skill3, 230 
-		SetTimer, Skill4, 240
-		SetTimer, ForceMove, 20  
+		SetTimer, Skill4, 230  
+		
+		;SetTimer, ForceMove, 20    
+		SetTimer, MouseRButton, 946
+		Sleep, 400
+		Gosub, Skill3
+		SetTimer, Skill3, 119000 
 		if(bLeft){
 		SetTimer, MouseLButton, 50
 		}
@@ -85,11 +98,10 @@ Close()
 Return
 
 
-F2:: 
+*F2:: 
 $XButton2:: 
 	Start()
 Return
-
 
 F3::
 $XButton1::
